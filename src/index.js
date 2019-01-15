@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
 import { ConnectedRouter } from 'connected-react-router';
+import { ConfigProvider, Empty } from 'antd';
 import store, { history } from './redux/store';
 import theme from './configs/theme';
 import Routes from './routes';
@@ -13,11 +14,13 @@ ReactDOM.render(
   <Provider store={store}>
     <ThemeProvider theme={theme}>
       <ConnectedRouter history={history}>
-        <Routes />
+        <ConfigProvider renderEmpty={() => <Empty />}>
+          <Routes />
+        </ConfigProvider>
       </ConnectedRouter>
     </ThemeProvider>
   </Provider>,
-  document.getElementById('root'),
+  document.getElementById('root')
 );
 
 // If you want your app to work offline and load faster, you can change
