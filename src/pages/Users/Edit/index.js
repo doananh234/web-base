@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Form, Button, Input } from 'antd';
 import UsersWrapper from './styles';
 import PrivateLayout from '../../../layout/PrivateLayout';
@@ -6,12 +7,13 @@ import AdminForm from '../../../containers/Admin/Form';
 
 const { Item } = Form;
 
-export default function UsersEdit() {
+export default function UsersEdit({ match }) {
   return (
     <PrivateLayout title="Edit User">
       <UsersWrapper>
         <AdminForm
           resource="users"
+          id={match && match.params && match.params.id}
           render={getFieldDecorator => [
             <>
               {getFieldDecorator('id', {
@@ -42,3 +44,7 @@ export default function UsersEdit() {
     </PrivateLayout>
   );
 }
+
+UsersEdit.propTypes = {
+  match: PropTypes.object,
+};

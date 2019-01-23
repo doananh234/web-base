@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import {
- Layout, Menu, Icon, Dropdown, Avatar,
-} from 'antd';
+import { Layout, Menu, Icon, Dropdown, Avatar } from 'antd';
+import { findLast } from 'lodash';
 import { Link, Redirect } from 'react-router-dom';
 import PageTitle from '../../components/PageTitle';
 import PrivateLayoutWrapper from './styles';
 
-const {
- Header, Sider, Content, Footer,
-} = Layout;
+const { Header, Sider, Content, Footer } = Layout;
 const sidebarMenu = [
   {
     key: 'dashboard',
@@ -53,22 +50,18 @@ class PrivateLayout extends Component {
   render() {
     const { children, isAuthenticated, title } = this.props;
     if (!isAuthenticated) return <Redirect to="/login" />;
+
+    console.log(window.location.pathname);
+    const defaultSelectedKeys =
+      findLast(sidebarMenu, menu => window.location.pathname.indexOf(menu.url) === 0) ||
+      sidebarMenu[0];
+    console.log(defaultSelectedKeys);
     return (
       <PrivateLayoutWrapper>
         <Layout>
-          <Sider
-            trigger={null}
-            collapsible
-            collapsed={this.state.collapsed}
-            style={{
-              overflow: 'auto',
-              height: '100vh',
-              position: 'fixed',
-              left: 0,
-            }}
-          >
+          <Sider trigger={null} collapsible collapsed={this.state.collapsed} className="sidebar">
             <div className="logo" />
-            <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
+            <Menu mode="inline" defaultSelectedKeys={[defaultSelectedKeys.key]}>
               {sidebarMenu.map(menu => (
                 <Menu.Item key={menu.key}>
                   <Link to={menu.url}>
@@ -83,6 +76,7 @@ class PrivateLayout extends Component {
             style={{
               marginLeft: this.state.collapsed ? 80 : 200,
               transition: 'all 0.2s ease 0s',
+              background: '#F4F6FC',
             }}
           >
             <Header className="header">
@@ -131,10 +125,9 @@ class PrivateLayout extends Component {
 PrivateLayout.propTypes = {
   children: PropTypes.any,
   isAuthenticated: PropTypes.bool,
+  title: PropTypes.string,
 };
 
-export default connect(state => {
-  return {
-    isAuthenticated: state.auth.isAuthenticated,
-  };
-})(PrivateLayout);
+export default connect(state => ({
+  isAuthenticated: state.auth.isAuthenticated,
+}))(PrivateLayout);

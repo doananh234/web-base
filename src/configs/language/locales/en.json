@@ -14,6 +14,13 @@
     }
   },
 
+  "form": {
+    "btn": {
+      "add": "Add new",
+      "edit": "Edit"
+    }
+  },
+
   "login": {
     "title": "Login",
     "rememberMe": "Remember me",

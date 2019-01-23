@@ -1,10 +1,9 @@
 import React, { Component, Children, cloneElement } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import {
- Table, Divider, Icon, Popconfirm,
-} from 'antd';
+import { Link, Redirect } from 'react-router-dom';
+import { t } from 'i18next';
+import { Table, Divider, Icon, Popconfirm, Button } from 'antd';
 import { isNumber } from 'lodash';
 import { fetchListResourceAction, deleteResourceByIdAction } from '../../../redux/admin/actions';
 import { getListresource } from '../../../redux/admin/selectors';
@@ -28,6 +27,11 @@ class AdminTable extends Component {
     } = this.props;
     return (
       <AdminTableWrapper>
+        <div className="action-div">
+          <Link to={`/${resource}/create`}>
+            <Button type="primary">{t('form.btn.add')}</Button>
+          </Link>
+        </div>
         <Table
           dataSource={listResource}
           loading={isFetching}
@@ -49,8 +53,8 @@ class AdminTable extends Component {
                   return a[child.props.dataIndex] - b[child.props.dataIndex];
                 }
                 return (
-                  a[child.props.dataIndex].toString().length
-                  - b[child.props.dataIndex].toString().length
+                  a[child.props.dataIndex].toString().length -
+                  b[child.props.dataIndex].toString().length
                 );
               },
               ...child.props,
@@ -110,5 +114,5 @@ export default connect(
     deleteResourceById: id => {
       dispatch(deleteResourceByIdAction(ownProps.resource, id));
     },
-  }),
+  })
 )(AdminTable);

@@ -37,10 +37,9 @@ const routes = [
   },
 ];
 
-const PrivateRoutes = () => {
-  return (
-    <Switch>
-      {map(
+const PrivateRoutes = () => (
+  <Switch>
+    {map(
         flatMap(routes, route => {
           if (route.routes) {
             return map(route.routes, subRoute => ({
@@ -51,14 +50,11 @@ const PrivateRoutes = () => {
           }
           return route;
         }),
-        route => {
-          return <Route {...route} key={route.path} />;
-        },
+        route => <Route {...route} key={route.path} />
       )}
-      <Route component={NotFoundPage} />
-    </Switch>
+    <Route component={NotFoundPage} />
+  </Switch>
   );
-};
 
 PrivateRoutes.propTypes = {};
 

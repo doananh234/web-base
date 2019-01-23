@@ -14,7 +14,7 @@ const PrivateLayoutWrapper = styled.div`
 
   .logo {
     height: 32px;
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(0, 0, 0, 0.2);
     margin: 16px;
   }
 
@@ -23,6 +23,12 @@ const PrivateLayoutWrapper = styled.div`
     height: 100vh;
     position: fixed;
     left: 0;
+    background: #fff;
+    border-right: 1px solid #e8e8e8;
+
+    .ant-menu {
+      border-right: 1px solid #fff;
+    }
   }
 
   .header {

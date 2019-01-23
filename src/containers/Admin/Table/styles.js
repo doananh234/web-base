@@ -1,5 +1,11 @@
 import styled from 'styled-components';
 
-const AdminTableWrapper = styled.div``;
+const AdminTableWrapper = styled.div`
+  .action-div {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+  }
+`;
 
 export default AdminTableWrapper;
