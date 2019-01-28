@@ -1,6 +1,8 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
+import { t } from 'i18next';
 import { flatMap, map } from 'lodash';
+import PrivateLayout from '../../layout/PrivateLayout';
 import NotFoundPage from '../../containers/404Page';
 import Home from '../../pages/Dashboard';
 import Users from '../../pages/Users';
@@ -13,6 +15,7 @@ const routes = [
     path: '/',
     component: Home,
     exact: true,
+    title: t('dashboard.title'),
   },
   {
     path: '/users',
@@ -38,8 +41,9 @@ const routes = [
 ];
 
 const PrivateRoutes = () => (
-  <Switch>
-    {map(
+  <PrivateLayout>
+    <Switch>
+      {map(
         flatMap(routes, route => {
           if (route.routes) {
             return map(route.routes, subRoute => ({
@@ -50,11 +54,14 @@ const PrivateRoutes = () => (
           }
           return route;
         }),
-        route => <Route {...route} key={route.path} />
+        route => (
+          <Route {...route} key={route.path} />
+        )
       )}
-    <Route component={NotFoundPage} />
-  </Switch>
-  );
+      <Route component={NotFoundPage} />
+    </Switch>
+  </PrivateLayout>
+);
 
 PrivateRoutes.propTypes = {};
 

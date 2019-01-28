@@ -6,7 +6,7 @@ const PublicLayoutWrapper = styled.div`
   }
 
   .main-img {
-    background-image: url(https://farm3.staticflickr.com/2828/33806127732_4fc20b444d_k.jpg);
+    background-image: url(https://farm5.staticflickr.com/4312/35463838634_4fc79a297c_k.jpg);
     background-color: transparent;
     background-size: cover;
     background-position: center center;

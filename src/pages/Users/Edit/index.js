@@ -1,16 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Form, Button, Input } from 'antd';
+import { t } from 'i18next';
 import UsersWrapper from './styles';
-import PrivateLayout from '../../../layout/PrivateLayout';
+import PageTitle from '../../../components/PageTitle';
 import AdminForm from '../../../containers/Admin/Form';
 
 const { Item } = Form;
 
 export default function UsersEdit({ match }) {
   return (
-    <PrivateLayout title="Edit User">
-      <UsersWrapper>
+    <UsersWrapper>
+      <PageTitle>{t('users.title')}</PageTitle>
+      <div className="mainContent">
         <AdminForm
           resource="users"
           id={match && match.params && match.params.id}
@@ -40,8 +42,8 @@ export default function UsersEdit({ match }) {
             </Button>,
           ]}
         />
-      </UsersWrapper>
-    </PrivateLayout>
+      </div>
+    </UsersWrapper>
   );
 }
 
