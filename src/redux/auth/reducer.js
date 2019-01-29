@@ -2,7 +2,7 @@ import { AuthTypes } from './actions';
 import { makeReducerCreator } from '../reduxCreator';
 
 export const initialState = {
-  isAuthenticated: true,
+  isAuthenticated: false,
   roles: '',
   loginError: false,
   loginSuccess: false,

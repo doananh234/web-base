@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { Layout, Menu, Icon, Dropdown, Avatar } from 'antd';
 import { findLast } from 'lodash';
 import { Redirect } from 'react-router-dom';
-import PageTitle from '../../components/PageTitle';
 import { history } from '../../redux/store';
 import PrivateLayoutWrapper from './styles';
 

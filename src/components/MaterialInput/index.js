@@ -1,33 +1,19 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { PureComponent } from 'react';
 import { Input } from 'antd';
+import MaterialInputWrapper from './styles';
 
-export class MaterialInput extends Component {
-  state = {
-    isfill: undefined,
-  };
-
+class MaterialInput extends PureComponent {
   componentDidMount() {}
 
-  onFocus = e => {
-    console.log(e.target.value);
-    this.setState({ isfill: true });
-  };
-
-  onBlur = e => {
-    console.log(e.target.value);
-    if (e.target && e.target.value) this.setState({ isfill: true });
-    else this.setState({ isfill: undefined });
-  };
-
   render() {
+    const { placeholder, prefix, ...params } = this.props;
     return (
-      <Input
-        {...this.props}
-        onFocus={this.onFocus}
-        onBlur={this.onBlur}
-        isfill={this.state.isfill}
-      />
+      <MaterialInputWrapper isPrefix={!!prefix}>
+        <Input {...params} />
+        {prefix}
+        <label>{placeholder}</label>
+        <span className="bar" />
+      </MaterialInputWrapper>
     );
   }
 }

@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter, Redirect } from 'react-router-dom';
-import {
- Form, Icon, Input, Button, Checkbox,
-} from 'antd';
+import { Form, Icon, Input, Button, Checkbox } from 'antd';
 import i18n from 'i18next';
 import { loginAction } from '../../redux/auth/actions';
+import MaterialInput from '../../components/MaterialInput';
 
 const FormItem = Form.Item;
 
@@ -36,21 +35,21 @@ class Login extends Component {
             {getFieldDecorator('username', {
               rules: [{ required: true, message: i18n.t('input.username.validateMsg.required') }],
             })(
-              <Input
+              <MaterialInput
                 placeholder={i18n.t('input.username.placeholder')}
                 prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-              />,
+              />
             )}
           </FormItem>
           <FormItem>
             {getFieldDecorator('password', {
               rules: [{ required: true, message: i18n.t('input.password.validateMsg.required') }],
             })(
-              <Input
+              <MaterialInput
                 placeholder={i18n.t('input.password.placeholder')}
                 prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
                 type="password"
-              />,
+              />
             )}
           </FormItem>
           <div className="sub-action-div">
@@ -78,17 +77,13 @@ Login.propTypes = {
 
 export default withRouter(
   connect(
-    state => {
-      return {
-        isAuthenticated: state.auth.isAuthenticated,
-      };
-    },
-    dispatch => {
-      return {
-        login: params => {
-          dispatch(loginAction(params));
-        },
-      };
-    },
-  )(Form.create()(Login)),
+    state => ({
+      isAuthenticated: state.auth.isAuthenticated,
+    }),
+    dispatch => ({
+      login: params => {
+        dispatch(loginAction(params));
+      },
+    })
+  )(Form.create()(Login))
 );
